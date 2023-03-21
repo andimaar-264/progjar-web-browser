@@ -2,6 +2,8 @@ import java.io.BufferedInputStream;
 import java.net.Socket;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.io.FileOutputStream;
 
 public class util {
 
@@ -85,6 +87,24 @@ public class util {
         if(statusCode >= 400 && statusCode < 600){
             throw new Exception("Error: Status code " + statusCode);
         }
+    }
+
+    public static void downloadMethod(String FILE_URL, String FILE_NAME) throws IOException {
+        URL url = new URL(FILE_URL);
+
+        BufferedInputStream bis = new BufferedInputStream(url.openStream());
+        FileOutputStream fis = new FileOutputStream("./" + FILE_NAME + ".pdf");
+
+        byte[] buffer = new byte[bufferSize];
+        int count = 0;
+
+        while ((count = bis.read(buffer, 0, bufferSize)) != -1) {
+            fis.write(buffer, 0, count);
+        }
+
+        fis.close();
+        bis.close();
+
     }
 }
 

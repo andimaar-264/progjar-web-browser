@@ -21,6 +21,11 @@ public class main2 {
                 util.httpRequestFirst(sc, bis, bos, url);
                 break;
                 case 2:
+                System.out.println("Please enter the url.");
+                String fileUrl = stringScanner.nextLine();
+                System.out.println("Please enter what you want to name the file.");
+                String fileName = stringScanner.nextLine();
+                util.downloadMethod(fileUrl, fileName);
                 break;
                 case 3:
                 break;
