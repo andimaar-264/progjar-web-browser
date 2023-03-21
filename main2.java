@@ -14,14 +14,13 @@ public class main2 {
             BufferedInputStream bis = null;
             BufferedOutputStream bos = null;
             Socket sc = null;
-    
-            String response = util.httpRequestFirst(sc, bis, bos, url);
+            util.httpRequestFirst(sc, bis, bos, url);
             
-            System.out.println(response);
             stringScanner.close();
         }
         catch(Exception e){
             e.printStackTrace();
         }
+        return;
     }
 }
