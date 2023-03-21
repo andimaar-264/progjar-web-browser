@@ -26,8 +26,9 @@ public class util {
         bos.flush();
 
         int counter = 0;
+        String tempResponse = null;
         do{
-            String tempResponse = new String(bis.readNBytes(bufferSize));
+            tempResponse = new String(bis.readNBytes(bufferSize));
             if(tempResponse.isEmpty()){
                 break;
             }
@@ -39,12 +40,8 @@ public class util {
             for (String string : responseArr) {
                 System.out.println(string);
             }
-            if(tempResponse.length() < bufferSize){
-                break;
-            }
-        }
-        while(true);
-        System.out.print("test");
+
+        }while(tempResponse.length() < bufferSize);
         // String[] response = ;
         // String tempResponse = null;
         // do{
@@ -81,7 +78,8 @@ public class util {
         }
 
         if(statusCode >=300 && statusCode < 400){
-            throw new Exception("Error: Status code " + statusCode);
+            // throw new Exception("Error: Status code " + statusCode);
+            return;
             // TEMPORARY TODO
         }
         if(statusCode >= 400 && statusCode < 600){
