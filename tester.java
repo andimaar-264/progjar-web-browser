@@ -5,6 +5,7 @@ public class tester {
 
     public static void main(String[] args) {
         testParseCode();
+        testHostParser();
     }
 
     public static void testParseCode(){
@@ -17,4 +18,12 @@ public class tester {
         // System.out.println(statusCodeSecond);
 
     }
+
+    public static void testHostParser(){
+        String test = new String("https://www.google.com/");
+        String[] result = util.getHostAndUrl(test);
+        for (String string : result) {
+            System.out.println(string);
+        }
+    }   
 }

@@ -22,12 +22,15 @@ public class main2 {
                 break;
                 case 2:
                 System.out.println("Please enter the url.");
+                String listUrl = stringScanner.nextLine();
+                util.ClickableLink(listUrl);
+                break;
+                case 3:
+                System.out.println("Please enter the url.");
                 String fileUrl = stringScanner.nextLine();
                 System.out.println("Please enter what you want to name the file.");
                 String fileName = stringScanner.nextLine();
                 util.downloadMethod(fileUrl, fileName);
-                break;
-                case 3:
                 break;
             }
 
