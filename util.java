@@ -56,6 +56,15 @@ public class util {
             String[] responseArr = tempResponse.split("\r\n");
             for (String string : responseArr) {
                 System.out.println(string);
+                if(string.contains("url=")){
+                    String[] stringSplit = string.split(";");
+                    for(String stringTwo : stringSplit){
+                        if(stringTwo.contains("url=")){
+                            redirectAddress = stringTwo.replaceAll("url=", "");
+                            isRedirect = true;
+                        }
+                    }
+                }
             }
             if(statusCode >= 300 && statusCode < 400){
                 redirectAddress = getRedirectAddress(responseArr);
