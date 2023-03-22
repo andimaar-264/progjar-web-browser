@@ -9,7 +9,7 @@ public class main2 {
         try{
             // Takes url from user.
             Scanner stringScanner = new Scanner(System.in);
-            System.out.println("Please select the functionality:\n1.Open a webpage\n2.Show a list of links\n3.Download a file\n");
+            System.out.println("Please select the functionality:\n1.Open a webpage\n2.Show a list of links\n3.Download a file\n4.Open a webpage with auth.");
             int userChoice = Integer.parseInt(stringScanner.nextLine());
             switch(userChoice){
                 case 1:
@@ -31,6 +31,18 @@ public class main2 {
                 System.out.println("Please enter what you want to name the file.");
                 String fileName = stringScanner.nextLine();
                 util.downloadMethod(fileUrl, fileName);
+                break;
+                case 4:
+                System.out.println("Please enter the url.");
+                String authUrl = stringScanner.nextLine();
+                System.out.println("Please enter the use.");
+                String username = stringScanner.nextLine();
+                System.out.println("Please enter the password.");
+                String password = stringScanner.nextLine();
+                BufferedInputStream authBis = null;
+                BufferedOutputStream authBos = null;
+                Socket authSc = null;
+                util.httpRequestWithToken(authSc, authBis, authBos, authUrl, username, password);            
                 break;
             }
 
