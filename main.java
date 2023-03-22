@@ -1,4 +1,3 @@
-package ruwet;
 
 import java.io.*;
 import java.net.*;
@@ -6,7 +5,57 @@ import java.util.*;
 import java.nio.file.*;
 
 public class main {
+    public static void ClickableLink(String url) {
+        try {
+            if (url.contains("https://")) {
+                String[] arrOfStr = url.split("https://", 2);
+                url = arrOfStr[1];
+            }
 
+            Socket socket = new Socket("" + url, 80);
+
+            // Instantiates a new PrintWriter passing in the sockets output stream
+            PrintWriter wtr = new PrintWriter(socket.getOutputStream());
+
+            // Prints the request string to the output stream
+            wtr.println("GET / HTTP/1.1");
+            wtr.println("Host: " + url);
+            wtr.println("");
+            wtr.flush();
+
+            BufferedReader bufRead = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String outStr;
+
+            boolean foundLinks = false;
+            int count = 1;
+            // Prints each line of the response
+            while ((outStr = bufRead.readLine()) != null) {
+                if (outStr.contains("<a href=")) {
+                    // Extract the hyperlink from the HTML string
+                    int startIndex = outStr.indexOf("href=\"") + 6;
+                    int endIndex = outStr.indexOf("\"", startIndex);
+                    String link = outStr.substring(startIndex, endIndex);
+
+                    // Print the hyperlink
+                    System.out.println(count++ + "." + link);
+
+                    foundLinks = true;
+                }
+            }
+
+            if (!foundLinks) {
+                System.out.println("No hyperlinks found in response.");
+            }
+
+            bufRead.close();
+            wtr.close();
+            socket.close();
+
+        } catch (IOException e) {
+            // confused
+            e.printStackTrace();
+        }
+    }
     public static void SocketConnect(String url) {
         try {
             if (url.contains("https://")) {
@@ -119,7 +168,12 @@ public class main {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("");
+            System.out.println("==========!!!==========");
+            System.out.println("1. Open a Web");
+            System.out.println("2. Show list of clickable link");
+            System.out.println("3. Download File");
+            System.out.println("4. Show respective HTTP error messages");
+            System.out.println("12. Exit");
             System.out.println("==========!!!==========");
             System.out.println("1-12?");
             key = sc.nextLine();
@@ -134,11 +188,9 @@ public class main {
 
                 // show clickable links
                 case "2":
-                    System.out.println("https://www.google.com");
-                    System.out.println("https://www.youtube.com");
-                    System.out.println("https://www.twitter.com");
-                    System.out.println("https://www.instagram.com");
-                    System.out.println("https://www.facebook.com");
+                    System.out.println("URI?");
+                    url = sc.nextLine();
+                    ClickableLink(url);
                     break;
 
                 // downloading files
@@ -165,7 +217,7 @@ public class main {
                     downloadMethod(url, urn);
                     break;
 
-                case "6":
+                case "4":
                     System.out.println("URI?");
                     url = sc.nextLine();
                     responseCode(url);
@@ -178,4 +230,3 @@ public class main {
         }
 
     }
-}
