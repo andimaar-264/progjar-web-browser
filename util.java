@@ -34,8 +34,8 @@ public class util {
             messageHeader = "GET / HTTP/1.1\r\n";
         }
         String host = "Host: " + hostAndUrl[0];
-        System.out.println(messageHeader);
-        System.out.println(host);
+        System.out.print(messageHeader);
+        System.out.print(host + "\n");
         bos.write(messageHeader.getBytes(), 0, messageHeader.length());
         bos.write(host.getBytes(), 0, host.length());
         bos.write("\r\n\r\n".getBytes(), 0, "\r\n\r\n".length());
@@ -180,6 +180,9 @@ public class util {
 
                 int startIndex = outStr.indexOf("href=\"") + 6;
                 int endIndex = outStr.indexOf("\"", startIndex);
+                if(startIndex == -1 || endIndex == -1){
+                    break;
+                }
                 String link = outStr.substring(startIndex, endIndex);
 
 
