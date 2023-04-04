@@ -35,8 +35,8 @@ public class util {
             messageHeader = "GET / HTTP/1.1\r\n";
         }
         String host = "Host: " + hostAndUrl[0];
-        System.out.print(messageHeader);
-        System.out.print(host + "\n");
+        // System.out.print(messageHeader);
+        // System.out.print(host + "\n");
         bos.write(messageHeader.getBytes(), 0, messageHeader.length());
         bos.write(host.getBytes(), 0, host.length());
         bos.write("\r\n\r\n".getBytes(), 0, "\r\n\r\n".length());
@@ -56,7 +56,6 @@ public class util {
             }
             String[] responseArr = tempResponse.split("\r\n");
             for (String string : responseArr) {
-                System.out.println(string);
                 if (string.contains("url=")) {
                     String[] stringSplit = string.split(";");
                     for (String stringTwo : stringSplit) {
@@ -65,6 +64,9 @@ public class util {
                             isRedirect = true;
                         }
                     }
+                }
+                if(string.contains("<")){
+                    System.out.println(string);
                 }
             }
             if (statusCode >= 300 && statusCode < 400) {
