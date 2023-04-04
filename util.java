@@ -210,11 +210,11 @@ public class util {
         }
     }
 
-    public static void downloadMethod(String FILE_URL, String FILE_NAME) throws IOException {
+    public static void downloadMethod(String FILE_URL, String FILE_NAME, String FILE_TYPE) throws IOException {
         URL url = new URL(FILE_URL);
 
         BufferedInputStream bis = new BufferedInputStream(url.openStream());
-        FileOutputStream fis = new FileOutputStream("./" + FILE_NAME + ".pdf");
+        FileOutputStream fis = new FileOutputStream("./" + FILE_NAME + "." + FILE_TYPE);
 
         byte[] buffer = new byte[bufferSize];
         int count = 0;

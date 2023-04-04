@@ -1,7 +1,6 @@
 import java.io.BufferedOutputStream;
 import java.util.Scanner;
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.net.Socket;
 
 public class main2 {
@@ -30,7 +29,9 @@ public class main2 {
                 String fileUrl = stringScanner.nextLine();
                 System.out.println("Please enter what you want to name the file.");
                 String fileName = stringScanner.nextLine();
-                util.downloadMethod(fileUrl, fileName);
+                System.out.println("Please enter what the file type is.");
+                String fileType = stringScanner.nextLine();
+                util.downloadMethod(fileUrl, fileName, fileType);
                 break;
                 case 4:
                 System.out.println("Please enter the url.");
