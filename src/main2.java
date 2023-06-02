@@ -12,7 +12,7 @@ public class main2 {
             int userChoice = Integer.parseInt(stringScanner.nextLine());
             switch(userChoice){
                 case 1:
-                System.out.println("Please enter the url.");
+                System.out.println("Please enter the url!");
                 String url = stringScanner.nextLine();
                 BufferedInputStream bis = null;
                 BufferedOutputStream bos = null;
@@ -20,12 +20,12 @@ public class main2 {
                 util.httpRequestFirst(sc, bis, bos, url);
                 break;
                 case 2:
-                System.out.println("Please enter the url.");
+                System.out.println("Please enter the url!");
                 String listUrl = stringScanner.nextLine();
                 util.ClickableLink(listUrl);
                 break;
                 case 3:
-                System.out.println("Please enter the url.");
+                System.out.println("Please enter the url!");
                 String fileUrl = stringScanner.nextLine();
                 System.out.println("Please enter what you want to name the file.");
                 String fileName = stringScanner.nextLine();
@@ -34,11 +34,11 @@ public class main2 {
                 util.downloadMethod(fileUrl, fileName, fileType);
                 break;
                 case 4:
-                System.out.println("Please enter the url.");
+                System.out.println("Please enter the url!");
                 String authUrl = stringScanner.nextLine();
-                System.out.println("Please enter the use.");
+                System.out.println("Please enter the use!");
                 String username = stringScanner.nextLine();
-                System.out.println("Please enter the password.");
+                System.out.println("Please enter the password!");
                 String password = stringScanner.nextLine();
                 BufferedInputStream authBis = null;
                 BufferedOutputStream authBos = null;
@@ -46,7 +46,7 @@ public class main2 {
                 util.httpRequestWithToken(authSc, authBis, authBos, authUrl, username, password);            
                 break;
                 case 5:
-                System.out.println("Please specify the number of files you want to download. Max 5.");
+                System.out.println("Please specify the number of files you want to download! Max 5");
                 int totalFilesDownload = Integer.parseInt(stringScanner.nextLine());
                 if(totalFilesDownload < 1 || totalFilesDownload > 5){
                     break;
@@ -60,10 +60,10 @@ public class main2 {
                     System.out.println("Please input the url. COUNT: " + i+1);
                     downloadUrls[i] = stringScanner.nextLine();
                     
-                    System.out.println("Please input the filename.");
+                    System.out.println("Please input the filename!");
                     fileNames[i] = stringScanner.nextLine();
 
-                    System.out.println("Please input the filetype.");
+                    System.out.println("Please input the filetype!");
                     fileTypes[i] = stringScanner.nextLine();
 
                     threads[i] = new downloadThread(downloadUrls[0], fileNames[i], fileTypes[i]); 
