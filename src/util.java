@@ -97,8 +97,7 @@ public class util {
 
     }
 
-    public static void httpRequestWithToken(Socket sc, BufferedInputStream bis, BufferedOutputStream bos, String url,
-            String username, String password) throws Exception {
+    public static void httpRequestWithToken(Socket sc, BufferedInputStream bis, BufferedOutputStream bos, String url, String username, String password) throws Exception {
         String[] hostAndUrl = getHostAndUrl(url);
         sc = new Socket("" + hostAndUrl[0], 80);
         bis = new BufferedInputStream(sc.getInputStream());
@@ -114,20 +113,21 @@ public class util {
             messageHeader = "GET / HTTP/1.1\r\n";
         }
         String host = "Host: " + hostAndUrl[0];
-        String usernameAndPassword = username + ":" + password;
+        String usernameAndPassword = username+ ":" + password;
+        System.out.print(usernameAndPassword);
         String base64EncodedToken = Base64.getEncoder().encodeToString(usernameAndPassword.getBytes());
         String authHeader = "Authorization: Basic " + base64EncodedToken + "\r\n";
         System.out.print(messageHeader);
         System.out.print(host + "\n");
         System.out.print(authHeader + "\n");
-        bos.write(messageHeader.getBytes(), 0, messageHeader.length());
-        bos.write(host.getBytes(), 0, host.length());
-        bos.write(authHeader.getBytes(), 0, authHeader.length());
-        bos.write("\r\n\r\n".getBytes(), 0, "\r\n\r\n".length());
+        String request = messageHeader + host + "\r\n" + authHeader + "\r\n\r\n";
+        System.out.print(request);
+        bos.write(request.getBytes(), 0, request.length());
         bos.flush();
         int counter = 0;
         String tempResponse = null;
         int statusCode = -1;
+        byte[] buffer = new byte[bufferSize];
         do {
             tempResponse = new String(bis.readNBytes(bufferSize));
             if (tempResponse.isEmpty()) {
@@ -157,7 +157,7 @@ public class util {
                 // System.out.print(redirectAddress);
             }
 
-        } while (tempResponse.length() < bufferSize);
+        } while (bis.read(buffer) != -1 );
         if (isRedirect) {
             System.out.println("Redirecting to " + redirectAddress);
             httpRequestFirst(sc, bis, bos, redirectAddress);
@@ -173,12 +173,8 @@ public class util {
             // String responses = new String(bis.readNBytes(bufferSize));
         }
         System.out.println(statusCode);
-        if (statusCode == 401) {
-            httpRequestWithToken(sc, bis, bos, url, username, password);
-        }
-
         sc.close();
-        
+
         // System.out.println(responses);
 
     }
